@@ -108,13 +108,10 @@ int main() {
      double K = 5.9;
     double L = 1.0;
     double x[Nbeads], y[Nbeads], z[Nbeads];
-    FILE *op_local, *op_avg, *op2, *op3;
-    op_local = fopen("./Output-local/Output-file9.xyz", "w");
-    op_avg = fopen("./Output-avg/Output-file9.xyz", "w");
+    FILE *op;
+    op = fopen("Output.xyz", "w");
     int i, j, bead;
-    op2 = fopen("force-Ext.txt", "w");
-    op3 = fopen("force-Ang.txt", "w");
-FILE *fp9 = fopen("rand_vals.txt", "w");
+  
 
 double *FactiveR = malloc(Nbeads * sizeof(double));
 double *FactiveL = malloc(Nbeads * sizeof(double));
@@ -131,7 +128,7 @@ for (i = 0; i < Nbeads; ++i) {
 
 
 
-long idum = -(time(NULL)+seed999);
+long idum = -(time(NULL)+3133);
 
    
     double dx,dy,dz,rr;
@@ -282,7 +279,6 @@ while (start + 2 < Nbeads) {
 double n = ran2(&idum) * 4.5+0.5;
     double rand_val = ran2(&idum);
                
-fprintf(fp9, "%f\n", rand_val);
 
 
    if (rand_val < 0.5) {  // 50% chance
@@ -524,10 +520,10 @@ for (j = 0; j < Nbeads; j++) {
 //Sampling for average
 
  if (current_step % 10000 == 0 && current_step > 600000) {
-            fprintf(op_avg, "%d\n", Nbeads);
-            fprintf(op_avg, "%d\n", current_step);
+            fprintf(op, "%d\n", Nbeads);
+            fprintf(op, "%d\n", current_step);
             for (j = 0; j < Nbeads; j++) {
-                fprintf(op_avg, "%d %f %f %f\n", 1, x[j], y[j], z[j]);
+                fprintf(op, "%d %f %f %f\n", 1, x[j], y[j], z[j]);
 
             }
         }  
@@ -536,31 +532,12 @@ for (j = 0; j < Nbeads; j++) {
 
 
 
-        
-   
-    
-    FILE *fp = fopen("group_layout-file9.txt", "w");
-if (fp == NULL) {
-    printf("Error opening file!\n");
-    exit(1);
-}
-
-fprintf(fp, "Total groups: %d\n\n", num_groups);
-for (int i = 0; i < num_groups; i++) {
-    fprintf(fp, "Group %d: %d %d %d\n", i, groups[i][0], groups[i][1], groups[i][2]);
-}
-
-fclose(fp);
-
-
     printf("Simulation completed.\n");
     
     /* cleanup */
-    fclose(op_local);
-    fclose(op_avg);
-    fclose(op2);
-    fclose(op3);
-    fclose(fp9);
+ 
+    fclose(op);
+ 
 
     free(xnew); free(ynew); free(znew);
     free(FactiveR); free(FactiveL); free(FangR); free(FangL);
