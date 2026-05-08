@@ -25,8 +25,7 @@ We use the open-source LAMMPS package to simulate chromatin at nucleosome resolu
 ## File Description
 
 - `run_microc_simulation.in` - Script file for LAMMPS
-- `com_pos.c` - Analysis code to find center-of-mass positions of CG beads
-- `cg_analysis.c` - Uses the center-of-mass file obtained from `com_pos.c` to measure coarse-graining properties
+- `cg_analysis.c` - Code to measure coarse-graining properties
 - `CG_activity_simulation.c` - Code for simulating coarse-grained chromatin polymers with local activities (LA)
 - `CG_activity_with_hic_simulation.c` - Code for simulating coarse-grained chromatin polymers with local activities (LA) and Hi-C-based interactions
 - `fit.py` - Code for finding the best linear combination of distributions that fits the target distribution
@@ -36,49 +35,34 @@ We use the open-source LAMMPS package to simulate chromatin at nucleosome resolu
 
 Refer to the official [LAMMPS installation documentation](https://docs.lammps.org/Install.html) for installation instructions.
 Run the nucleosome-resolution chromatin simulation using:
-
 ```bash
 ./lmp_serial < run_microc_simulation.in
 ```
-
-Compile and run `com_pos.c` using:
-
-```bash
-gcc com_pos.c -lm
-./a.out
-```
-
 Compile and run `cg_analysis.c` using:
-
 ```bash
 gcc cg_analysis.c -lm
 ./a.out
 ```
-
 Compile and run `CG_activity_simulation.c` using:
-
 ```bash
 gcc CG_activity_simulation.c -lm
 ./a.out
 ```
-
 Compile and run `CG_activity_with_hic_simulation.c` using:
-
 ```bash
 gcc CG_activity_with_hic_simulation.c -lm
 ./a.out
 ```
 Run the Python analysis script using:
-
 ```bash
 python fit.py
 ```
 ---
 
-## Expected Output
+**## Expected Output
 
 The simulation generates single position trajectory file. The analysis codes compute coarse-grained polymer properties, while the Python fitting script estimates the parameters that best reproduce the target distributions.
----
+---**
 
 ## Typical Runtime
 
