@@ -1,7 +1,7 @@
 ###############################################
 # LAMMPS script for a polymer
 ###############################################
-
+ 
 ###
 # Box and units  (use LJ units and periodic boundaries)
 ###
