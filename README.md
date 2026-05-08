@@ -59,10 +59,10 @@ python fit.py
 ```
 ---
 
-**## Expected Output
+## Expected Output
 
 The simulation generates single position trajectory file. The analysis codes compute coarse-grained polymer properties, while the Python fitting script estimates the parameters that best reproduce the target distributions.
----**
+
 
 ## Typical Runtime
 
