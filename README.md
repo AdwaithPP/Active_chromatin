@@ -17,7 +17,69 @@ We use the open-source LAMMPS package to simulate chromatin at nucleosome resolu
 
 ## System Requirements
 
-- LAMMPS is an open-source software package. System requirements and installation details for LAMMPS can be found on the official LAMMPS website [LAMMPS]([https://www.lammps.org/](https://docs.lammps.org/Install.html).
+- LAMMPS is an open-source software package. System requirements and installation details for LAMMPS can be found on the official LAMMPS website [LAMMPS]([https://www.lammps.org/](https://docs.lammps.org/Install.html)).
 - The custom C codes used for coarse-grained polymer simulations and analysis were tested on a Linux system (Ubuntu), but should also work on macOS or Windows systems with appropriate compilers.
 - Additional data analysis was performed using Python and Jupyter notebooks.
 - The C codes were compiled using the GCC compiler with the math library (`-lm`).
+
+## File Description
+
+- `run_microc_simulation.in` - Script file for LAMMPS
+- `com_pos.c` - Analysis code to find center-of-mass positions of CG beads
+- `cg_analysis.c` - Uses the center-of-mass file obtained from `com_pos.c` to measure coarse-graining properties
+- `CG_activity_simulation.c` - Code for simulating coarse-grained chromatin polymers with local activities (LA)
+- `CG_activity_with_hic_simulation.c` - Code for simulating coarse-grained chromatin polymers with local activities (LA) and Hi-C-based interactions
+- `fit.py` - Code for finding the best linear combination of distributions that fits the target distribution
+
+
+## How to Run
+
+Refer to the official [LAMMPS installation documentation](https://docs.lammps.org/Install.html) for installation instructions.
+Run the nucleosome-resolution chromatin simulation using:
+
+```bash
+./lmp_serial < run_microc_simulation.in
+```
+
+Compile and run `com_pos.c` using:
+
+```bash
+gcc com_pos.c -lm
+./a.out
+```
+
+Compile and run `cg_analysis.c` using:
+
+```bash
+gcc cg_analysis.c -lm
+./a.out
+```
+
+Compile and run `CG_activity_simulation.c` using:
+
+```bash
+gcc CG_activity_simulation.c -lm
+./a.out
+```
+
+Compile and run `CG_activity_with_hic_simulation.c` using:
+
+```bash
+gcc CG_activity_with_hic_simulation.c -lm
+./a.out
+```
+Run the Python analysis script using:
+
+```bash
+python fit.py
+```
+---
+
+## Expected Output
+
+The simulation generates single position trajectory file. The analysis codes compute coarse-grained polymer properties, while the Python fitting script estimates the parameters that best reproduce the target distributions.
+---
+
+## Typical Runtime
+
+Typical installation time for LAMMPS is around 30 minutes. A single nucleosome-resolution simulation may take several hours depending on the system size and hardware configuration. The coarse-grained simulations also typically require several hours depending on the system size and simulation parameters.
