@@ -3,7 +3,7 @@
 #define NINT(a) ((a) >= 0.0 ? (int)((a)+0.5) : (int)((a)-0.5))	//Nearest integer
 #include<math.h>
 #define Sqr(x)     ((x) * (x))
-
+ 
 int main()
 {
 int i,j,k;
