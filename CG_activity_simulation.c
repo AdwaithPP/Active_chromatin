@@ -104,13 +104,10 @@ int main() {
      double K = 5.9;
     double L = 1.0;
     double x[Nbeads], y[Nbeads], z[Nbeads];
-    FILE *op, *op2, *op3;
-    op = fopen("./Output/Output-file9.xyz", "w");
+    FILE *op;
+    op = fopen("Output.xyz", "w");
     int i, j, bead;
-    op2 = fopen("force-Ext.txt", "w");
-    op3 = fopen("force-Ang.txt", "w");
-FILE *fp9 = fopen("rand_vals.txt", "w");
-
+   
 double *FactiveR = malloc(Nbeads * sizeof(double));
 double *FactiveL = malloc(Nbeads * sizeof(double));
 double *FangR    = malloc(Nbeads * sizeof(double));
@@ -160,7 +157,7 @@ double rcut = pow(2.0, 1.0/6.0) * sigma;
 
 
 
-long idum = -(time(NULL)+seed999);
+long idum = -(time(NULL)+3133);
   
    
     double dx,dy,dz,rr;
@@ -243,7 +240,6 @@ while (start + 2 < Nbeads) {
 double n = ran2(&idum) * 4.5+0.5;
     double rand_val = ran2(&idum);
                
-fprintf(fp9, "%f\n", rand_val);
 
 
    if (rand_val < 0.5) {  // 50% chance
@@ -264,7 +260,7 @@ fprintf(fp9, "%f\n", rand_val);
 int last_update[100] = {0};  // track last update time for each group
 
 
-for (int current_step = 0; current_step < N_STEPS; current_step++) {
+for (current_step = 0; current_step < N_STEPS; current_step++) {
 
   
     // Check if we need to update forces for each group
@@ -443,27 +439,13 @@ if (rand_val < 0.5) {  // 50% chance
         
    
     
-    FILE *fp = fopen("group_layout-file9.txt", "w");
-if (fp == NULL) {
-    printf("Error opening file!\n");
-    exit(1);
-}
-
-fprintf(fp, "Total groups: %d\n\n", num_groups);
-for (int i = 0; i < num_groups; i++) {
-    fprintf(fp, "Group %d: %d %d %d\n", i, groups[i][0], groups[i][1], groups[i][2]);
-}
-
-fclose(fp);
 
 
     printf("Simulation completed.\n");
     
     /* cleanup */
     fclose(op);
-    fclose(op2);
-    fclose(op3);
-    fclose(fp9);
+   
 
     free(xnew); free(ynew); free(znew);
     free(FactiveR); free(FactiveL); free(FangR); free(FangL);
